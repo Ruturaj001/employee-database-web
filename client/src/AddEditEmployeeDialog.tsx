@@ -80,7 +80,7 @@ export class AddEditEmployeeDialog extends React.Component<IAddEditEmployeeDialo
     }
 
     async fetchJokeAndQuote() {
-        this.favoriteJoke.value = await getFavoriteQuote();
+        this.favoriteJoke.value = await getFavoriteJoke();
         this.favoriteQuote.value = await getFavoriteQuote();
     }
 
