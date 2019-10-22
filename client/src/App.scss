@@ -1,0 +1,17 @@
+.dialog-content {
+    .input-row {
+        justify-content: space-between;
+        padding: 4px;
+        .column-2 {
+            width: 250px;
+
+            .input-date {
+                width: inherit;
+            }
+        }
+    }
+}
+
+.long-sentence {
+    white-space: pre-wrap;
+}

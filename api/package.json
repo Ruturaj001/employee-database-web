@@ -1,0 +1,22 @@
+{
+  "name": "takehomerest",
+  "version": "0.0.1",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "azure-devops-ui": "~1.159.0",
+    "cors": "^2.8.5",
+    "express": "~4.16.1",
+    "guid": "0.0.12",
+    "react": "~16.8.1",
+    "react-dom": "~16.8.1"
+  },
+  "devDependencies": {
+    "@types/react": "~16.8.2",
+    "@types/react-dom": "~16.8.0",
+    "typescript": "^2.9.2"
+  }
+}
