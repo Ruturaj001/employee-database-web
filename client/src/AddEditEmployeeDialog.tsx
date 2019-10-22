@@ -10,7 +10,7 @@ import { ObservableValue, ObservableArray } from "azure-devops-ui/Core/Observabl
 import { Observer } from "azure-devops-ui/Observer";
 import { PanelHeader, PanelFooter, PanelContent } from "azure-devops-ui/Panel";
 import { DropdownSelection } from "azure-devops-ui/Utilities/DropdownSelection";
-import { IEmployee } from "./Contract";
+import { IEmployee, IError } from "./Contract";
 import { TextField } from "azure-devops-ui/TextField";
 import { formatDate } from "./DateLib";
 import { updateEmployee, createEmployee, deleteEmployee, getFavoriteJoke, getFavoriteQuote } from "./EmployeeRestClient";
@@ -138,7 +138,7 @@ export class AddEditEmployeeDialog extends React.Component<IAddEditEmployeeDialo
                         {this.props.employee && <Button onClick={this.onDeleteClick} subtle={true} text="Delete employee" />}
                         <ButtonGroup className="bolt-panel-footer-buttons flex-grow">
                             <Button onClick={this.props.onDismiss} text="Cancel" />
-                            <Button onClick={this.onOKClick} primary={true} text="Ok" />;
+                            <Button onClick={this.onOKClick} primary={true} text="Ok" />
                         </ButtonGroup>
                     </div>
                 </PanelFooter>
@@ -171,9 +171,13 @@ export class AddEditEmployeeDialog extends React.Component<IAddEditEmployeeDialo
     };
 
     private onDeleteClick = (): void => {
-        deleteEmployee(this.props.employee!.id!).then(() => {
-            this.props.onDismiss();
-            this.props.list.splice(this.props.selectedIndex, 1);
+        deleteEmployee(this.props.employee!.id!).then(returnValue => {
+            if (returnValue.error) {
+                this.message.value = returnValue.error;
+            } else {
+                this.props.list.splice(this.props.selectedIndex, 1);
+                this.props.onDismiss();
+            }
         });
     };
 
@@ -190,14 +194,23 @@ export class AddEditEmployeeDialog extends React.Component<IAddEditEmployeeDialo
 
             if (this.props.employee) {
                 employee.id = this.props.employee.id;
-                updateEmployee(employee).then(employee => {
-                    this.props.list.splice(this.props.selectedIndex, 1, employee);
-                    this.props.onDismiss();
+                employee.etag = this.props.employee.etag;
+                updateEmployee(employee).then(returnValue => {
+                    if (returnValue.error) {
+                        this.message.value = returnValue.error;
+                    } else {
+                        this.props.list.splice(this.props.selectedIndex, 1, returnValue);
+                        this.props.onDismiss();
+                    }
                 });
             } else {
-                createEmployee(employee).then(employee => {
-                    this.props.list.push(employee);
-                    this.props.onDismiss();
+                createEmployee(employee).then(returnValue => {
+                    if (returnValue.error) {
+                        this.message.value = returnValue.error;
+                    } else {
+                        this.props.list.push(returnValue);
+                        this.props.onDismiss();
+                    }
                 });
             }
         }

@@ -1,18 +1,13 @@
-import { IEmployee } from "./Contract";
+import { IEmployee, IError } from "./Contract";
 
 const baseUrl: string = "http://localhost:3000/api/employees";
 
-export function createEmployee(employee: IEmployee): Promise<IEmployee> {
+export function createEmployee(employee: IEmployee): Promise<any> {
     return fetch(baseUrl, {
         method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
         headers: {
             "Content-Type": "application/json"
         },
-        redirect: "follow",
-        referrer: "no-referrer",
         body: JSON.stringify(employee)
     })
         .then(res => res.json())
@@ -21,17 +16,9 @@ export function createEmployee(employee: IEmployee): Promise<IEmployee> {
         });
 }
 
-export function deleteEmployee(employeeId: string): Promise<boolean> {
+export function deleteEmployee(employeeId: string): Promise<any> {
     return fetch("http://localhost:3000/api/employees/" + employeeId, {
-        method: "DELETE",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        redirect: "follow",
-        referrer: "no-referrer"
+        method: "DELETE"
     })
         .then(res => res.json())
         .then(res => {
@@ -47,7 +34,7 @@ export function getAllEmployees(): Promise<IEmployee[]> {
         });
 }
 
-export function getEmployee(id: string): Promise<IEmployee> {
+export function getEmployee(id: string): Promise<any> {
     return fetch(baseUrl + "/" + id)
         .then(res => res.json())
         .then(res => {
@@ -71,17 +58,12 @@ export function getFavoriteQuote(): Promise<string> {
         });
 }
 
-export function updateEmployee(employee: IEmployee): Promise<IEmployee> {
+export function updateEmployee(employee: IEmployee): Promise<any> {
     return fetch(baseUrl + "/" + employee.id, {
         method: "PUT",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
         headers: {
             "Content-Type": "application/json"
         },
-        redirect: "follow",
-        referrer: "no-referrer",
         body: JSON.stringify(employee)
     })
         .then(res => res.json())
