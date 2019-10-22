@@ -32,11 +32,11 @@ router.put("/:id", function(req, res) {
         // the employee is record was updated by someone else in meanwhile
         res.status(422).send({ error: "You have outdated entry. Refresh the page before continuing." });
     } else {
-        // if employe was a CEO and not anymore update it
+        // if employee was a CEO and not anymore update it
         if (DATABASE[employee.id].role === "CEO" && employee.role !== "CEO") {
             ceo = undefined;
         }
-        // if employe was a CEO and not anymore update it
+        // if employee wasn't ceo and becomes one update it
         if (DATABASE[employee.id].role !== "CEO" && employee.role === "CEO") {
             ceo = employee;
         }
