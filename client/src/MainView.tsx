@@ -101,7 +101,7 @@ export class MainContent extends React.Component {
                                 return props.loading === true ? (
                                     <Spinner />
                                 ) : props.list.length === 0 ? (
-                                    <div>No data</div>
+                                    <div>No data.</div>
                                 ) : (
                                     <Table<IEmployee>
                                         className="flex-noshrink"
