@@ -18,7 +18,3 @@ export interface IEmployee {
 
     role: string;
 }
-
-export interface IError {
-    error: string;
-}

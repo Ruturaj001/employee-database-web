@@ -10,7 +10,7 @@ import { ObservableValue, ObservableArray } from "azure-devops-ui/Core/Observabl
 import { Observer } from "azure-devops-ui/Observer";
 import { PanelHeader, PanelFooter, PanelContent } from "azure-devops-ui/Panel";
 import { DropdownSelection } from "azure-devops-ui/Utilities/DropdownSelection";
-import { IEmployee, IError } from "./Contract";
+import { IEmployee } from "./Contract";
 import { TextField } from "azure-devops-ui/TextField";
 import { formatDate } from "./DateLib";
 import { updateEmployee, createEmployee, deleteEmployee, getFavoriteJoke, getFavoriteQuote } from "./EmployeeRestClient";

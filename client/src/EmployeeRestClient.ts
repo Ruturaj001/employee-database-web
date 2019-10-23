@@ -1,4 +1,4 @@
-import { IEmployee, IError } from "./Contract";
+import { IEmployee } from "./Contract";
 
 const baseUrl: string = "http://localhost:3000/api/employees";
 
