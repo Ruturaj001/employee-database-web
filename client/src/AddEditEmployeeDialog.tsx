@@ -41,7 +41,6 @@ interface IAddEditEmployeeDialogProps {
 export class AddEditEmployeeDialog extends React.Component<IAddEditEmployeeDialogProps> {
     memberSelection: IListSelection;
     message: ObservableValue<string>;
-    okButtonEnabled: ObservableValue<boolean>;
     firstName: ObservableValue<string>;
     lastName: ObservableValue<string>;
     hireDate: string;
@@ -52,8 +51,6 @@ export class AddEditEmployeeDialog extends React.Component<IAddEditEmployeeDialo
 
     constructor(props: IAddEditEmployeeDialogProps) {
         super(props);
-
-        this.okButtonEnabled = new ObservableValue<boolean>(true);
         this.message = new ObservableValue<string>("");
         this.memberSelection = new DropdownSelection();
 
@@ -217,14 +214,19 @@ export class AddEditEmployeeDialog extends React.Component<IAddEditEmployeeDialo
     };
 
     private validateSelections = (): boolean => {
-        this.okButtonEnabled.value = this.firstName.value !== "" && this.lastName.value !== "";
+        let returnValue = false;
         if (this.firstName.value === "") {
             this.message.value = "First name can not be empty.";
+        } else if (/\d/.test(this.firstName.value)) {
+            this.message.value = "First name can not contain numbers.";
         } else if (this.lastName.value === "") {
             this.message.value = "Last name can not be empty.";
+        } else if (/\d/.test(this.lastName.value)) {
+            this.message.value = "Last name can not contain numbers.";
         } else {
+            returnValue = true;
             this.message.value = "";
         }
-        return this.okButtonEnabled.value;
+        return returnValue;
     };
 }
