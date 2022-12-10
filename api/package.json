@@ -9,7 +9,7 @@
   "dependencies": {
     "azure-devops-ui": "~1.159.0",
     "cors": "^2.8.5",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "guid": "0.0.12",
     "react": "~16.8.1",
     "react-dom": "~16.8.1"
